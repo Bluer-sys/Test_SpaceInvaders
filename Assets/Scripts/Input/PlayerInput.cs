@@ -1,5 +1,4 @@
-﻿using Data;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -12,11 +11,6 @@ namespace Input
 		private Vector2 _prevMousePos;
 
 		public ReactiveProperty<Vector2> Delta { get; } = new();
-
-		public PlayerInput(GameConfig gameConfig)
-		{
-			_prevMousePos = UnityEngine.Input.mousePosition;
-		}
 
 		public void Tick()
 		{

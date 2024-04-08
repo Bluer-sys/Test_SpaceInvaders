@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameConfig: {fileID: 11400000, guid: e348ab2c064211745aada2c2bf0761f3, type: 2}
+  _prefabsConfig: {fileID: 11400000, guid: 4388845a41c4e4642a9b585d6e4b0550, type: 2}

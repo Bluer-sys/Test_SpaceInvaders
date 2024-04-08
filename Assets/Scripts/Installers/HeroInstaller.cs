@@ -9,6 +9,7 @@ namespace Installers
 		{
 			Container.BindInstance( transform ).AsSingle();
 			Container.Bind<HeroMovement>().AsSingle().NonLazy();
+			Container.BindInterfacesTo<HeroGun>().AsSingle();
 		}
 	}
 }

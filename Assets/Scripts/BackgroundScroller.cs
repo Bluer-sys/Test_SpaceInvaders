@@ -1,4 +1,5 @@
 ﻿using Data;
+using Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -21,12 +22,7 @@ public class BackgroundScroller : MonoBehaviour
 	{
 		float newY = _rawImage.uvRect.y + _gameConfig.BackgroundScrollSpeed * Time.deltaTime;
 		newY %= 1.0f;
-		
-		_rawImage.uvRect = new Rect(
-			_rawImage.uvRect.x, 
-			newY, 
-			_rawImage.uvRect.width, 
-			_rawImage.uvRect.height
-		);
+
+		_rawImage.uvRect = _rawImage.uvRect.WithY( newY );
 	}
 }

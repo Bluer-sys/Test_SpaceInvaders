@@ -9,9 +9,13 @@ namespace Installers
 		[SerializeField] 
 		private GameConfig _gameConfig;
 		
+		[SerializeField] 
+		private PrefabsConfig _prefabsConfig;
+		
 		public override void InstallBindings()
 		{
 			Container.BindInstance( _gameConfig ).AsSingle();
+			Container.BindInstance( _prefabsConfig ).AsSingle();
 		}
 	}
 }
