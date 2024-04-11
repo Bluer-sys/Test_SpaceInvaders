@@ -1,5 +1,6 @@
 ﻿using Bullet;
 using Hero;
+using Hero.Interfaces;
 using UnityEngine;
 using Weapon.Base;
 using Zenject;

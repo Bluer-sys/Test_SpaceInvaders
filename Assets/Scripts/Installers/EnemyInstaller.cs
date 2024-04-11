@@ -1,5 +1,7 @@
 ﻿using Enemy;
 using Enemy.Interfaces;
+using Unit;
+using Unit.Interfaces;
 using Zenject;
 
 namespace Installers
@@ -11,7 +13,7 @@ namespace Installers
 			Container.BindInstance( transform ).AsSingle();
 			
 			Container.BindInterfacesTo<EnemyMovement>().AsSingle();
-			Container.Bind<IEnemyHealth>().To<EnemyHealth>().AsSingle();
+			Container.Bind<IUnitHealth>().To<UnitHealth>().AsSingle();
 		}
 	}
 }

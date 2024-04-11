@@ -29,6 +29,8 @@ namespace Enemy
 		private readonly CompositeDisposable _lifetimeDisposable = new();
 		
 		public IReadOnlyList<IEnemyFacade> SpawnedEnemies => _spawnedEnemies;
+		
+		public ReactiveCommand<IEnemyFacade> OnEnemyDead { get; } = new();
 
 		public EnemySpawner( EnemyFactory enemyFactory, GameConfig gameConfig)
 		{
@@ -72,6 +74,8 @@ namespace Enemy
 		{
 			_spawnedEnemies.Remove( enemy );
 			Object.Destroy( enemy.gameObject );
+
+			OnEnemyDead.Execute( enemy );
 		}
 
 		private EnemyModel CreateEnemyModel()
@@ -90,6 +94,7 @@ namespace Enemy
 				StartPosition = randomPosition,
 				Speed = _gameConfig.EnemySpeed.Random(),
 				Health = _gameConfig.EnemyHealth.Random(),
+				Reward = _gameConfig.EnemyReward.Random()
 			};
 		}
 

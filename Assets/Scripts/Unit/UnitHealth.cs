@@ -1,11 +1,12 @@
-﻿using Enemy.Interfaces;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UniRx;
+using Unit.Interfaces;
+using UnityEngine;
 
-namespace Enemy
+namespace Unit
 {
 	[UsedImplicitly]
-	public class EnemyHealth : IEnemyHealth
+	public class UnitHealth : IUnitHealth
 	{
 		public int MaxHealth { get; private set; }
 		public IntReactiveProperty Health { get; } = new();
@@ -21,9 +22,9 @@ namespace Enemy
 
 		public void TakeDamage(int damage)
 		{
-			Health.Value -= damage;
+			Health.Value = Mathf.Clamp( Health.Value - damage, 0, MaxHealth );
 			
-			if (Health.Value <= 0)
+			if (Health.Value == 0)
 			{
 				IsDead.Value = true;
 			}

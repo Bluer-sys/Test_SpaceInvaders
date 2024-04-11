@@ -1,4 +1,5 @@
 ﻿using UI;
+using UI.Interfaces;
 using Zenject;
 
 namespace Installers

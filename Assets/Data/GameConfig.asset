@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   HeroSpeed: 1
+  HeroHealth: 10
   EnemySpawnInterval: {x: 1, y: 4}
   EnemySpeed: {x: 0.4, y: 3}
   EnemyHealth: {x: 3, y: 5}
+  EnemyReward: {x: 5, y: 10}
   BackgroundScrollSpeed: 0.04

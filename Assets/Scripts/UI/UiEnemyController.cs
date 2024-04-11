@@ -1,7 +1,8 @@
 ﻿using System;
-using Enemy.Interfaces;
 using JetBrains.Annotations;
+using UI.Interfaces;
 using UniRx;
+using Unit.Interfaces;
 
 namespace UI
 {
@@ -10,14 +11,14 @@ namespace UI
 	{
 		private readonly CompositeDisposable _lifetimeDisposable = new();
 
-		public UiEnemyController(IUiEnemyView uiEnemyView, IEnemyHealth enemyHealth)
+		public UiEnemyController(IUiEnemyView uiEnemyView, IUnitHealth unitHealth)
 		{
-			enemyHealth.IsDead
+			unitHealth.IsDead
 				.Subscribe( isDead => uiEnemyView.SetActive( !isDead ) )
 				.AddTo( _lifetimeDisposable );
 
-			enemyHealth.Health
-				.Subscribe( hp => uiEnemyView.SetHealth( hp, enemyHealth.MaxHealth ) )
+			unitHealth.Health
+				.Subscribe( hp => uiEnemyView.SetHealth( hp, unitHealth.MaxHealth ) )
 				.AddTo( _lifetimeDisposable );
 		}
 

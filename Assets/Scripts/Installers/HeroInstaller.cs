@@ -1,4 +1,6 @@
 ﻿using Hero;
+using Unit;
+using Unit.Interfaces;
 using Zenject;
 
 namespace Installers
@@ -10,6 +12,9 @@ namespace Installers
 			Container.BindInstance( transform ).AsSingle();
 			
 			Container.Bind<HeroMovement>().AsSingle().NonLazy();
+			Container.Bind<IUnitHealth>().To<UnitHealth>().AsSingle();
+			Container.BindInterfacesTo<HeroDataStorage>().AsSingle();
+			Container.Bind<HeroInitializer>().AsSingle().NonLazy();
 		}
 	}
 }

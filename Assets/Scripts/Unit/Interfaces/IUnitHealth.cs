@@ -1,8 +1,8 @@
 ﻿using UniRx;
 
-namespace Enemy.Interfaces
+namespace Unit.Interfaces
 {
-	public interface IEnemyHealth
+	public interface IUnitHealth
 	{
 		int MaxHealth { get; }
 		IntReactiveProperty Health { get; }

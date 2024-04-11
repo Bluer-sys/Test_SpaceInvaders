@@ -4,6 +4,7 @@ using Enemy;
 using Enemy.Factory;
 using Enemy.Interfaces;
 using Hero;
+using Hero.Interfaces;
 using Input;
 using Utilities;
 using Zenject;

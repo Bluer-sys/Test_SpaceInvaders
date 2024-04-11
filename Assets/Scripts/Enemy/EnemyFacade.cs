@@ -1,5 +1,6 @@
 ﻿using Enemy.Interfaces;
 using UniRx;
+using Unit.Interfaces;
 using UnityEngine;
 using Zenject;
 
@@ -7,36 +8,40 @@ namespace Enemy
 {
 	public class EnemyFacade : MonoBehaviour, IEnemyFacade
 	{
-		private IEnemyHealth _enemyHealth;
+		private IUnitHealth _unitHealth;
 		private IEnemyMovement _enemyMovement;
 
 		[Inject]
-		private void Construct(IEnemyHealth enemyHealth, IEnemyMovement enemyMovement)
+		private void Construct(IUnitHealth unitHealth, IEnemyMovement enemyMovement)
 		{
-			_enemyHealth = enemyHealth;
+			_unitHealth = unitHealth;
 			_enemyMovement = enemyMovement;
 		}
 
 		public Transform Transform => transform;
 		
-		public BoolReactiveProperty IsDead => _enemyHealth.IsDead;
+		public BoolReactiveProperty IsDead => _unitHealth.IsDead;
+		
+		public int Reward { get; private set; }
 
 		public void Initialize(EnemyModel model)
 		{
 			transform.position = model.StartPosition;
 			
+			Reward = model.Reward;
+			
 			_enemyMovement.SetSpeed( model.Speed );
-			_enemyHealth.Initialize( model.Health );
+			_unitHealth.Initialize( model.Health );
 		}
 
 		public void TakeDamage(int damage)
 		{
-			_enemyHealth.TakeDamage(damage);
+			_unitHealth.TakeDamage(damage);
 		}
 
 		public void Kill()
 		{
-			_enemyHealth.Kill();
+			_unitHealth.Kill();
 		}
 	}
 }

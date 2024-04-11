@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UI.Interfaces;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
@@ -13,7 +14,7 @@ namespace UI
 		
 		public void SetHealth(int health, int maxHealth)
 		{
-			_healthBar.fillAmount = health / (float) maxHealth;
+			_healthBar.fillAmount = (float) health / maxHealth;
 		}
 
 		public void SetActive(bool isActive)
