@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Configuration;
 using UnityEngine;
 using Zenject;
 

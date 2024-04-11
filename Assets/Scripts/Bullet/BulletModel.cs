@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Bullet.Base
+namespace Bullet
 {
-	public struct BulletSettings
+	public struct BulletModel
 	{
+		public Sprite Sprite;
 		public Vector3 StartPosition;
 		public Vector3 StartDirection;
 		public BulletType Type;

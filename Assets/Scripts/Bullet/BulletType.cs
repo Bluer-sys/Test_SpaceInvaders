@@ -1,4 +1,4 @@
-﻿namespace Bullet.Base
+﻿namespace Bullet
 {
 	public enum BulletType
 	{

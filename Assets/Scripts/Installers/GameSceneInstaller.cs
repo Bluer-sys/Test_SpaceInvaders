@@ -1,8 +1,8 @@
 ﻿using Bullet;
-using Bullet.Base;
-using Data;
+using Configuration;
 using Hero;
 using Input;
+using Utilities;
 using Zenject;
 
 namespace Installers
@@ -21,15 +21,18 @@ namespace Installers
 		
 		public override void InstallBindings()
 		{
+			Container.Bind<ScreenBorder>().AsSingle().NonLazy();
+			
 			Container.BindInterfacesTo<PlayerInput>().AsSingle();
 			Container.Bind<IHeroFacade>().To<HeroFacade>().FromComponentInHierarchy().AsSingle();
+			Container.BindInterfacesTo<ObjectsLifetimeController>().AsSingle();
 			
 			Container
-				.BindMemoryPool< HeroBullet, BulletPool >()
+				.BindMemoryPool< Bullet.Bullet, BulletPool >()
 				.WithInitialSize( BulletPoolInitialSize )
 				.ExpandByOneAtATime()
-				.FromComponentInNewPrefab( _prefabsConfig.HeroBulletPrefab )
-				.UnderTransformGroup( "HeroBullets" );
+				.FromComponentInNewPrefab( _prefabsConfig._simpleBulletPrefab )
+				.UnderTransformGroup( "BulletPool" );
 		}
 	}
 }

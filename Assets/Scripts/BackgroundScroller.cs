@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Configuration;
 using Extensions;
 using UnityEngine;
 using UnityEngine.UI;

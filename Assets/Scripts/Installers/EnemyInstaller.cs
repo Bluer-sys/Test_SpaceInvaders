@@ -1,15 +1,15 @@
-﻿using Hero;
+﻿using Enemy;
 using Zenject;
 
 namespace Installers
 {
-	public class HeroInstaller : MonoInstaller
+	public class EnemyInstaller : MonoInstaller
 	{
 		public override void InstallBindings()
 		{
 			Container.BindInstance( transform ).AsSingle();
 			
-			Container.Bind<HeroMovement>().AsSingle().NonLazy();
+			Container.Bind<EnemyMovement>().AsSingle().NonLazy();
 		}
 	}
 }
