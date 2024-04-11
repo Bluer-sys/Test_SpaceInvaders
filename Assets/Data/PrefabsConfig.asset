@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b5855a9f864e0e83315ab2361863cd, type: 3}
   m_Name: PrefabsConfig
   m_EditorClassIdentifier: 
-  _simpleBulletPrefab: {fileID: 3513116549462787791, guid: 96e5966738348d94fa4204151e6a1716, type: 3}
+  BulletPrefab: {fileID: 3513116549462787791, guid: 96e5966738348d94fa4204151e6a1716, type: 3}
+  EnemyPrefab: {fileID: 90530206128729698, guid: 3a215bba09f5d9a438a2d78dc4c0a6b8, type: 3}

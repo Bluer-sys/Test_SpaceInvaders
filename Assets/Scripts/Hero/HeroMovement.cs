@@ -29,8 +29,8 @@ namespace Hero
 		private void Move(Vector2 delta)
 		{
 			Vector3 newPos = _transform.position + (Vector3)delta * _gameConfig.HeroSpeed * Time.deltaTime;
-			float clampedX = Mathf.Clamp( newPos.x, ScreenBorder.Left, ScreenBorder.Right );
-			float clampedY = Mathf.Clamp( newPos.y, ScreenBorder.Bottom, ScreenBorder.Top );
+			float clampedX = Mathf.Clamp( newPos.x, ScreenWorld.Left, ScreenWorld.Right );
+			float clampedY = Mathf.Clamp( newPos.y, ScreenWorld.Bottom, ScreenWorld.Top );
 			Vector3 clampedPos = new Vector3( clampedX, clampedY, newPos.z );
 			
 			_transform.position = clampedPos;

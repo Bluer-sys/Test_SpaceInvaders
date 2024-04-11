@@ -1,4 +1,5 @@
 ﻿using Enemy;
+using Enemy.Interfaces;
 using Zenject;
 
 namespace Installers
@@ -9,7 +10,8 @@ namespace Installers
 		{
 			Container.BindInstance( transform ).AsSingle();
 			
-			Container.Bind<EnemyMovement>().AsSingle().NonLazy();
+			Container.BindInterfacesTo<EnemyMovement>().AsSingle();
+			Container.Bind<IEnemyHealth>().To<EnemyHealth>().AsSingle();
 		}
 	}
 }

@@ -1,19 +1,42 @@
-﻿using UnityEngine;
+﻿using Enemy.Interfaces;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
 	public class EnemyFacade : MonoBehaviour, IEnemyFacade
 	{
-		private int _hp = 3;
+		private IEnemyHealth _enemyHealth;
+		private IEnemyMovement _enemyMovement;
+
+		[Inject]
+		private void Construct(IEnemyHealth enemyHealth, IEnemyMovement enemyMovement)
+		{
+			_enemyHealth = enemyHealth;
+			_enemyMovement = enemyMovement;
+		}
+
+		public Transform Transform => transform;
 		
+		public BoolReactiveProperty IsDead => _enemyHealth.IsDead;
+
+		public void Initialize(EnemyModel model)
+		{
+			transform.position = model.StartPosition;
+			
+			_enemyMovement.SetSpeed( model.Speed );
+			_enemyHealth.Initialize( model.Health );
+		}
+
 		public void TakeDamage(int damage)
 		{
-			_hp -= damage;
-			
-			if (_hp <= 0)
-			{
-				Destroy(gameObject);
-			}
+			_enemyHealth.TakeDamage(damage);
+		}
+
+		public void Kill()
+		{
+			_enemyHealth.Kill();
 		}
 	}
 }

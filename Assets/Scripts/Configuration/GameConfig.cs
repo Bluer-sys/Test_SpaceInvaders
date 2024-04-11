@@ -7,12 +7,14 @@ namespace Configuration
 	{
 		[Header( "Hero" )] 
 		public float HeroSpeed;
-		public int HeroBulletDamage;
-		public float HeroBulletSpeed;
-		public float HeroShootInterval;
 
+		[Header( "Enemy" )]
+		[Tooltip("Random between two values")]
+		public Vector2 EnemySpawnInterval;
+		public Vector2 EnemySpeed;
+		public Vector2Int EnemyHealth;
+		
 		[Header( "Background" )] 
 		public float BackgroundScrollSpeed;
-
 	}
 }

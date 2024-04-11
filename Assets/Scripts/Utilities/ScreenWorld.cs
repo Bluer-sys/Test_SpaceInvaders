@@ -4,14 +4,14 @@ using UnityEngine;
 namespace Utilities
 {
 	[UsedImplicitly]
-	public class ScreenBorder
+	public class ScreenWorld
 	{
 		public static float Left { get; private set; }
 		public static float Right { get; private set; }
 		public static float Top { get; private set; }
 		public static float Bottom { get; private set; }
 
-		public ScreenBorder()
+		public ScreenWorld()
 		{
 			CalcBorders();
 		}

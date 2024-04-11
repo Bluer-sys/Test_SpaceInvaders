@@ -14,5 +14,10 @@ namespace Hero
 		public void TakeDamage(int damage)
 		{
 		}
+
+		public void Kill()
+		{
+			Destroy( gameObject );
+		}
 	}
 }
