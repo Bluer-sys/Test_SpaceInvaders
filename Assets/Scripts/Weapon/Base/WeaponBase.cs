@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bullet;
 using Configuration;
 using JetBrains.Annotations;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -15,35 +17,27 @@ namespace Weapon.Base
 		
 		protected WeaponConfig _weaponConfig;
 
-		private float _shootTimer;
-
 		[Inject]
 		private void Construct(List<Muzzle> muzzles, BulletPool bulletPool, WeaponConfig weaponConfig)
 		{
 			_bulletPool = bulletPool;
 			_muzzles = muzzles;
 			_weaponConfig = weaponConfig;
-		}
 
-		public void Update()
-		{
-			_shootTimer -= Time.deltaTime;
-
-			if ( _shootTimer > 0 ) 
-				return;
-			
-			Shoot();
-			_shootTimer = _weaponConfig.ShootInterval;
+			Observable
+				.Interval( TimeSpan.FromSeconds( _weaponConfig.ShootInterval ) )
+				.Subscribe( _ => Shoot() )
+				.AddTo( this );
 		}
 
 		protected abstract BulletModel CreateBulletModel(Muzzle muzzle);
 
 		private void Shoot()
 		{
-			foreach (Muzzle muzzle in _muzzles)
+			for (int i = 0; i < _muzzles.Count; i++)
 			{
-				BulletModel model = CreateBulletModel( muzzle );
-			
+				BulletModel model = CreateBulletModel( _muzzles[i] );
+
 				_bulletPool.Spawn( model );
 			}
 		}
