@@ -26,8 +26,6 @@ namespace Enemy
 
 		public void Initialize(EnemyModel model)
 		{
-			transform.position = model.StartPosition;
-			
 			Reward = model.Reward;
 			
 			_enemyMovement.SetSpeed( model.Speed );

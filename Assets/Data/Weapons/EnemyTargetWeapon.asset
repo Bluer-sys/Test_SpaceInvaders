@@ -15,5 +15,5 @@ MonoBehaviour:
   BulletSprite: {fileID: 21300000, guid: d7052bf44357d7145a3be71312a6716a, type: 3}
   Type: 2
   Damage: 1
-  ShootInterval: 3.3
+  ShootInterval: {x: 7, y: 15}
   Speed: 4

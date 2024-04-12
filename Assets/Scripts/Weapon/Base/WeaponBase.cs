@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Bullet;
 using Configuration;
+using Extensions;
 using JetBrains.Annotations;
-using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -16,18 +15,28 @@ namespace Weapon.Base
 		private BulletPool _bulletPool;
 		
 		protected WeaponConfig _weaponConfig;
-
+		
+		private float _shootTimer;
+		
 		[Inject]
 		private void Construct(List<Muzzle> muzzles, BulletPool bulletPool, WeaponConfig weaponConfig)
 		{
 			_bulletPool = bulletPool;
 			_muzzles = muzzles;
 			_weaponConfig = weaponConfig;
+			
+			SetRandomInterval();
+		}
 
-			Observable
-				.Interval( TimeSpan.FromSeconds( _weaponConfig.ShootInterval ) )
-				.Subscribe( _ => Shoot() )
-				.AddTo( this );
+		private void Update()
+		{
+			_shootTimer -= Time.deltaTime;
+			
+			if (_shootTimer <= 0)
+			{
+				Shoot();
+				SetRandomInterval();
+			}
 		}
 
 		protected abstract BulletModel CreateBulletModel(Muzzle muzzle);
@@ -40,6 +49,11 @@ namespace Weapon.Base
 
 				_bulletPool.Spawn( model );
 			}
+		}
+
+		private void SetRandomInterval()
+		{
+			_shootTimer = _weaponConfig.ShootInterval.Random();
 		}
 	}
 }

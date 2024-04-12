@@ -10,6 +10,8 @@ namespace Utilities
 		public static float Right { get; private set; }
 		public static float Top { get; private set; }
 		public static float Bottom { get; private set; }
+		public static float Width { get; private set; }
+		public static float Height { get; private set; }
 
 		public ScreenWorld()
 		{
@@ -27,6 +29,9 @@ namespace Utilities
 			Bottom = min.y;
 			Left = min.x;
 			Right = max.x;
+			
+			Width = Right - Left;
+			Height = Top - Bottom;
 		}
 	}
 }

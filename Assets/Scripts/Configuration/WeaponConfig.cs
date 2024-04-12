@@ -9,7 +9,7 @@ namespace Configuration
 		public Sprite BulletSprite;
 		public BulletType Type;
 		public int Damage;
-		public float ShootInterval;
+		public Vector2 ShootInterval;
 		public float Speed;
 	}
 }

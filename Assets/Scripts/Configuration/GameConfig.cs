@@ -11,10 +11,15 @@ namespace Configuration
 
 		[Header( "Enemy" )]
 		[Tooltip("Random between two values")]
-		public Vector2 EnemySpawnInterval;
 		public Vector2 EnemySpeed;
 		public Vector2Int EnemyHealth;
 		public Vector2Int EnemyReward;
+		public float EnemySpawnInterval;
+		
+		[Header("Gameplay")] 
+		public float NextWaveDifficultyAddon;
+		[Tooltip("x - row, y - column")]
+		public Vector2Int StartEnemyGrid;
 		
 		[Header( "Background" )] 
 		public float BackgroundScrollSpeed;

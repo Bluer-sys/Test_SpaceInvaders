@@ -8,26 +8,25 @@ using JetBrains.Annotations;
 using UniRx;
 using UnityEngine;
 using Utilities;
-using Zenject;
 using Object = UnityEngine.Object;
 
 namespace Enemy
 {
 	[UsedImplicitly]
-	public class EnemySpawner : IEnemySpawner, ITickable, IDisposable
+	public class EnemySpawner : IEnemySpawner, IDisposable
 	{
-		private const float TopOffset = 0.5f;
-		private const float LeftOffset = 0.5f;
-		private const float RightOffset = -0.5f;
-		
+		private const float TopOffset = -1f;
+		private const float VerticalStretch = 7f;
+		private const float HorizontalStretch = 1f;
+
 		private readonly EnemyFactory _enemyFactory;
 		private readonly GameConfig _gameConfig;
 
-		private float _spawnInterval;
-		
+		private float _difficultyMultiplier = 1.0f;
+
 		private readonly List<IEnemyFacade> _spawnedEnemies = new();
 		private readonly CompositeDisposable _lifetimeDisposable = new();
-		
+
 		public IReadOnlyList<IEnemyFacade> SpawnedEnemies => _spawnedEnemies;
 		
 		public ReactiveCommand<IEnemyFacade> OnEnemyDead { get; } = new();
@@ -36,31 +35,38 @@ namespace Enemy
 		{
 			_enemyFactory = enemyFactory;
 			_gameConfig = gameConfig;
-
-			SetRandomInterval();
 		}
 
-		public void Tick()
+		public void SpawnGrid(int row, int column, float difficultyMultiplier = 1.0f)
 		{
-			Debug.Log( SpawnedEnemies.Count );
+			_difficultyMultiplier = difficultyMultiplier;
+
+			float horizontalStep = (ScreenWorld.Width - 2 * HorizontalStretch) / (column - 1);
+			float verticalStep = (ScreenWorld.Height - VerticalStretch) / (row - 1);
 			
-			_spawnInterval -= Time.deltaTime;
-			
-			if (_spawnInterval > 0)
+			for (int i = 0; i < row; i++)
 			{
-				return;
+				for (int j = 0; j < column; j++)
+				{
+					Vector2 pos = new Vector2
+					{
+						x = ScreenWorld.Left + HorizontalStretch + horizontalStep * j,
+						y = ScreenWorld.Bottom + VerticalStretch + verticalStep * i + TopOffset
+					};
+                    
+					Spawn( pos );
+				}
 			}
-			
-			SetRandomInterval();
-			Spawn();
 		}
 
-		private void Spawn()
+		private void Spawn(Vector2 position)
 		{
 			EnemyModel enemyModel = CreateEnemyModel();
 
 			EnemyFacade enemy = _enemyFactory.Create( enemyModel );
 
+			enemy.transform.position = position;
+			
 			_spawnedEnemies.Add( enemy );
 
 			enemy.IsDead
@@ -80,27 +86,12 @@ namespace Enemy
 
 		private EnemyModel CreateEnemyModel()
 		{
-			float randomX = UnityEngine.Random.Range(
-				ScreenWorld.Left + LeftOffset, 
-				ScreenWorld.Right + RightOffset
-			);
-			
-			float y = ScreenWorld.Top + TopOffset;
-			
-			Vector2 randomPosition = new Vector2( randomX, y );
-			
 			return new EnemyModel
 			{
-				StartPosition = randomPosition,
 				Speed = _gameConfig.EnemySpeed.Random(),
-				Health = _gameConfig.EnemyHealth.Random(),
-				Reward = _gameConfig.EnemyReward.Random()
+				Health = (int) (_gameConfig.EnemyHealth.Random() * _difficultyMultiplier),
+				Reward = (int) (_gameConfig.EnemyReward.Random() * _difficultyMultiplier)
 			};
-		}
-
-		private void SetRandomInterval()
-		{
-			_spawnInterval = _gameConfig.EnemySpawnInterval.Random();
 		}
 
 		public void Dispose()

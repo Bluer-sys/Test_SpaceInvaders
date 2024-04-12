@@ -3,6 +3,7 @@ using Configuration;
 using Enemy;
 using Enemy.Factory;
 using Enemy.Interfaces;
+using Gameplay;
 using Hero;
 using Hero.Interfaces;
 using Input;
@@ -14,7 +15,6 @@ namespace Installers
 	public class GameSceneInstaller : MonoInstaller
 	{
 		private const int BulletPoolInitialSize = 10;
-		private const int EnemyPoolInitialSize = 5;
 		
 		private PrefabsConfig _prefabsConfig;
 
@@ -31,11 +31,9 @@ namespace Installers
 			Container.BindInterfacesTo<PlayerInput>().AsSingle();
 			Container.Bind<IHeroFacade>().To<HeroFacade>().FromComponentInHierarchy().AsSingle();
 			Container.BindInterfacesTo<ObjectsLifetimeController>().AsSingle();
-
-			Container
-				.BindFactory<EnemyModel, EnemyFacade, EnemyFactory>()
-				.FromFactory<EnemyPrefabFactory>();
+			Container.BindInterfacesTo<WavesController>().AsSingle();
 			
+			Container.BindFactory<EnemyModel, EnemyFacade, EnemyFactory>().FromFactory<EnemyPrefabFactory>();
 			Container.BindInterfacesTo<EnemySpawner>().AsSingle();
 			
 			Container
