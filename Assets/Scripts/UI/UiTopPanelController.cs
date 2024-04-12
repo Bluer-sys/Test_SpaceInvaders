@@ -7,18 +7,22 @@ using UniRx;
 namespace UI
 {
 	[UsedImplicitly]
-	public class UiController : IDisposable
+	public class UiTopPanelController : IDisposable
 	{
 		private readonly CompositeDisposable _lifetimeDisposables = new();
 
-		public UiController(IUiView uiView, IHeroFacade heroFacade)
+		public UiTopPanelController(IUiTopPanelView uiTopPanelView, IHeroFacade heroFacade, IPauseScreen pauseScreen)
 		{
 			heroFacade.Health
-				.Subscribe( h => uiView.SetHealth( h, heroFacade.MaxHealth ) )
+				.Subscribe( h => uiTopPanelView.SetHealth( h, heroFacade.MaxHealth ) )
 				.AddTo( _lifetimeDisposables );
 
 			heroFacade.Score
-				.Subscribe( uiView.SetScore )
+				.Subscribe( uiTopPanelView.SetScore )
+				.AddTo( _lifetimeDisposables );
+
+			uiTopPanelView.OnPause
+				.Subscribe( _ => pauseScreen.Show() )
 				.AddTo( _lifetimeDisposables );
 		}
 

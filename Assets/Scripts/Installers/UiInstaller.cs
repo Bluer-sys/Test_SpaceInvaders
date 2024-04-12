@@ -8,8 +8,11 @@ namespace Installers
 	{
 		public override void InstallBindings()
 		{
-			Container.BindInterfacesTo<UiController>().AsSingle();
-			Container.Bind<IUiView>().To<UiView>().FromComponentInHierarchy().AsSingle();
+			Container.BindInterfacesTo<UiTopPanelController>().AsSingle();
+			Container.Bind<IUiTopPanelView>().To<UiTopPanelView>().FromComponentInHierarchy().AsSingle();
+			
+			// Screen
+			Container.Bind<IPauseScreen>().To<PauseScreen>().FromComponentInHierarchy().AsSingle();
 		}
 	}
 }

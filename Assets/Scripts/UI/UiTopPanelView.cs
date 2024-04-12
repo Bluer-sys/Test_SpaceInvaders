@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-	public class UiView : MonoBehaviour, IUiView
+	public class UiTopPanelView : MonoBehaviour, IUiTopPanelView
 	{
 		[SerializeField] 
 		private Image _healthBar;
@@ -18,7 +18,7 @@ namespace UI
 		[SerializeField]
 		private Button _restartButton;
 		
-		public IObservable<UniRx.Unit> OnRestart => _restartButton.OnClickAsObservable();
+		public IObservable<UniRx.Unit> OnPause => _restartButton.OnClickAsObservable();
 		
 		public void SetHealth(int health, int maxHealth)
 		{

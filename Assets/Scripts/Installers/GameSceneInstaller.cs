@@ -4,6 +4,7 @@ using Enemy;
 using Enemy.Factory;
 using Enemy.Interfaces;
 using Gameplay;
+using Gameplay.Interfaces;
 using Hero;
 using Hero.Interfaces;
 using Input;
@@ -27,8 +28,9 @@ namespace Installers
 		public override void InstallBindings()
 		{
 			Container.Bind<ScreenWorld>().AsSingle().NonLazy();
+			Container.Bind<IGameController>().To<GameController>().AsSingle();
 			Container.BindInterfacesTo<ObjectsLifetimeController>().AsSingle();
-
+			
 			// input
 			Container.BindInterfacesTo<PlayerInput>().AsSingle();
 

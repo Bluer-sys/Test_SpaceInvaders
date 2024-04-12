@@ -2,9 +2,9 @@
 
 namespace UI.Interfaces
 {
-	public interface IUiView
+	public interface IUiTopPanelView
 	{
-		IObservable<UniRx.Unit> OnRestart { get; }
+		IObservable<UniRx.Unit> OnPause { get; }
 		
 		void SetHealth(int health, int maxHealth);
 		void SetScore(int value);
