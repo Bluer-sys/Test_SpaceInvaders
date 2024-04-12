@@ -19,7 +19,9 @@ namespace Weapon
 
 		protected override BulletModel CreateBulletModel(Muzzle muzzle)
 		{
-			Vector3 dirToHero = (_heroFacade.Transform.position - muzzle.Position).normalized;
+			Vector3 dirToHero = _heroFacade.IsDead.Value 
+				? muzzle.Up 
+				: (_heroFacade.Transform.position - muzzle.Position).normalized;
 			
 			return new BulletModel
 			{

@@ -2,6 +2,7 @@
 using Input;
 using JetBrains.Annotations;
 using UniRx;
+using Unit.Interfaces;
 using UnityEngine;
 using Utilities;
 
@@ -15,13 +16,13 @@ namespace Hero
 
 		private readonly CompositeDisposable _lifetimeDisposables = new();
 		
-		public HeroMovement(Transform transform, GameConfig gameConfig, IPlayerInput playerInput)
+		public HeroMovement(Transform transform, GameConfig gameConfig, IUnitHealth unitHealth, IPlayerInput playerInput)
 		{
 			_transform = transform;
 			_gameConfig = gameConfig;
 			
 			playerInput.Delta
-				.Where( d => d != Vector2.zero )
+				.Where( d => d != Vector2.zero && !unitHealth.IsDead.Value )
 				.Subscribe( Move )
 				.AddTo( _lifetimeDisposables );
 		}

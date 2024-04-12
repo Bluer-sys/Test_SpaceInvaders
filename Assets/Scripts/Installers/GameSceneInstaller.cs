@@ -27,12 +27,17 @@ namespace Installers
 		public override void InstallBindings()
 		{
 			Container.Bind<ScreenWorld>().AsSingle().NonLazy();
-			
-			Container.BindInterfacesTo<PlayerInput>().AsSingle();
-			Container.Bind<IHeroFacade>().To<HeroFacade>().FromComponentInHierarchy().AsSingle();
 			Container.BindInterfacesTo<ObjectsLifetimeController>().AsSingle();
-			Container.BindInterfacesTo<WavesController>().AsSingle();
+
+			// input
+			Container.BindInterfacesTo<PlayerInput>().AsSingle();
+
+			// Hero
+			Container.Bind<IHeroFacade>().To<HeroFacade>().FromComponentInHierarchy().AsSingle();
+			Container.BindInterfacesTo<HeroDeathObserver>().AsSingle();
 			
+			// Enemy
+			Container.BindInterfacesTo<WavesController>().AsSingle();
 			Container.BindFactory<EnemyModel, EnemyFacade, EnemyFactory>().FromFactory<EnemyPrefabFactory>();
 			Container.BindInterfacesTo<EnemySpawner>().AsSingle();
 			
