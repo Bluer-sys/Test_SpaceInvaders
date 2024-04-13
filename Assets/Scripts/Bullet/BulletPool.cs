@@ -29,5 +29,11 @@ namespace Bullet
 		{
 			bullet.Initialize(model);
 		}
+
+		public void TryDespawn(Bullet bullet)
+		{
+			if ( _spawnedBullets.Contains( bullet ) )
+				Despawn( bullet );
+		}
 	}
 }

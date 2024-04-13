@@ -70,7 +70,7 @@ namespace Bullet
 				return;
 			
 			damagable.TakeDamage( _bulletModel.Damage );
-			_bulletPool.Despawn( this );
+			_bulletPool.TryDespawn( this );
 		}
 
 		public void OnDestroy()
