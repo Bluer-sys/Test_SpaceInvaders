@@ -10,9 +10,9 @@ namespace Installers
 		public override void InstallBindings()
 		{
 			Container.BindInstance( transform ).AsSingle();
-			
-			Container.Bind<HeroMovement>().AsSingle().NonLazy();
+
 			Container.Bind<IUnitHealth>().To<UnitHealth>().AsSingle();
+			Container.Bind<HeroMovement>().AsSingle().NonLazy();
 			Container.BindInterfacesTo<HeroDataStorage>().AsSingle();
 			Container.Bind<HeroInitializer>().AsSingle().NonLazy();
 		}
